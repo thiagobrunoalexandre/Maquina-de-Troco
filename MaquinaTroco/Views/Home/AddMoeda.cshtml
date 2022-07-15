@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Moedas disponíveis";
+}
+@model MaquinaTroco.Models.Moeda;
+
+<div class="col-md-12">
+    <h4> Preencha os campos para cadastrar ou adicionar uma quantidade de moeda </h4>
+
+    @using (Html.BeginForm("AddMoeda", "Home", new { }, FormMethod.Post, false, new { @id = "register-form" }))
+    {
+
+        <div class="form-group intra-form">
+
+            <table class="table table-responsive">
+
+                <thead>
+
+                    <tr>
+
+                        <th> Valor </th>
+
+                        <th> Quantidade </th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            @Html.TextBoxFor(model => model.valor, new { @class = "form-control", @min = "0", @maxlength = "4" })
+                        </td>
+
+                        <td>
+                            @Html.TextBoxFor(model => model.quantidade, new { @class = "form-control", @min = "0", @maxlength = "4" })
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+
+                            <a>
+
+                                <input type="submit" value="Confiirmar" class="btn-success btn" />
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+        @if (TempData["MensagemErro"] != null)
+        {
+            <span style="color:red " class="error-message">@TempData["MensagemErro"]</span>
+        }
+
+    }
+</div>
+    <div class="col-md-8">
+        <h2>Moedas disponíveis</h2>
+        <table class="table table-responsive">
+
+            <thead>
+
+                <tr>
+
+                    <td>
+                        Valor
+                    </td>
+                    <td>
+                        Quantidade
+                    </td>
+
+
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (Moeda moeda in ViewBag.moedas)
+                {
+
+                    <tr>
+
+                        <td>
+                            @moeda.valor
+                        </td>
+                        <td>
+                            @moeda.quantidade
+                        </td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+
+        </table>
+        <br />
+        <br />
+    </div>
+

@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Moedas disponíveis";
+}
+@model MaquinaTroco.Models.Troco;
+
+<div class="col-md-12">
+    @if (ViewBag.troco == true)
+    {<h4>Preencha para gerar o troco</h4>
+
+        @using (Html.BeginForm("Troco", "Home", new { }, FormMethod.Post, false, new { @id = "register-form" }))
+        {
+
+            <div class="form-group intra-form">
+
+                <table class="table table-responsive">
+
+                    <thead>
+
+                        <tr>
+
+                            <th> Valor da compra </th>
+
+                            <th> Valor pago </th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>
+                                @Html.TextBoxFor(model => model.valor_compra, new { @class = "form-control", @min = "0", @maxlength = "10" })
+                            </td>
+
+                            <td>
+                                @Html.TextBoxFor(model => model.valor_pago, new { @class = "form-control", @min = "0", @maxlength = "10" })
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+
+
+                                <a>
+
+                                    <input type="submit" value="Gerar" class="btn-success btn" />
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+        }
+
+
+    }
+    @if (TempData["MensagemErro"] != null)
+    {
+        <span style="color:red " class="error-message">@TempData["MensagemErro"]</span>
+    }
+    @if (ViewBag.moedasUtilizadas != null)
+    {
+        <h4>Troco @ViewBag.valortroco</h4>
+        <h6>troco gerado com sucesso</h6>
+        <table class="table table-responsive">
+
+            <thead>
+                <tr>
+                    <td>Moedas utilizadas</td>
+                    <td>
+                        Valor
+                    </td>
+                    <td>
+                        Quantidade
+                    </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mu in ViewBag.moedasUtilizadas)
+                {
+
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            @mu.valor
+                        </td>
+                        <td>
+                            @mu.quantidade
+                        </td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+
+        </table>
+    }
+
+
+
+</div>
+<div class="col-md-8">
+    <h2>Moedas disponíveis</h2>
+    <table class="table table-responsive">
+
+        <thead>
+            <tr>
+                <td>
+                    Valor
+                </td>
+                <td>
+                    Quantidade
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var moeda in ViewBag.moedas)
+            {
+
+                <tr>
+
+                    <td>
+                        @moeda.valor
+                    </td>
+                    <td>
+                        @moeda.quantidade
+                    </td>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+
+    </table>
+    <br />
+    <br />
+</div>
+
